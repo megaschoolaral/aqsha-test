@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ақшаға деген Убежденлер Тесті</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:      #FDFAF5;
+    --bg2:     #FFFFFF;
+    --bg3:     #F7F2EA;
+    --gold:    #B8922A;
+    --gold2:   #D4A840;
+    --gold-light: #F5E8C0;
+    --gold-dim: rgba(184,146,42,0.10);
+    --cream:   #1C1409;
+    --cream2:  #3D2E14;
+    --muted:   #7A6A4F;
+    --border:  #E8DFC8;
+    --border2: #D4C8A8;
+    --red:     #C4503A;
+    --green:   #3D8A5C;
+    --orange:  #C4823A;
+    --shadow:  rgba(60,40,10,0.08);
+    --shadow2: rgba(60,40,10,0.15);
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--cream2);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+  }
+
+  /* SCREENS */
+  .screen { display:none; min-height:100vh; }
+  .screen.active { display:flex; flex-direction:column; }
+
+  /* ========== INTRO ========== */
+  #intro {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 64px 24px;
+    background: linear-gradient(160deg, #FDFAF5 0%, #F7F0E0 60%, #FDFAF5 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  #intro::before {
+    content: '';
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(184,146,42,0.10) 0%, transparent 70%);
+    top: -100px; right: -100px;
+    pointer-events: none;
+  }
+
+  #intro::after {
+    content: '';
+    position: absolute;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(184,146,42,0.07) 0%, transparent 70%);
+    bottom: -80px; left: -80px;
+    pointer-events: none;
+  }
+
+  .intro-inner {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .intro-photo-wrap {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--gold);
+    box-shadow: 0 4px 28px rgba(184,146,42,0.25);
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp .7s ease forwards .1s;
+  }
+
+  .intro-photo-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 5%;
+  }
+
+  .intro-eyebrow {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp .7s ease forwards .2s;
+  }
+
+  .intro-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(40px, 9vw, 88px);
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1.0;
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp .8s ease forwards .4s;
+  }
+
+  .intro-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .intro-desc {
+    font-size: clamp(14px, 2vw, 17px);
+    color: var(--muted);
+    max-width: 480px;
+    line-height: 1.8;
+    margin-bottom: 52px;
+    opacity: 0;
+    animation: fadeUp .8s ease forwards .6s;
+  }
+
+  .intro-meta {
+    display: flex;
+    gap: 0;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 56px;
+    opacity: 0;
+    animation: fadeUp .8s ease forwards .75s;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 60px;
+    padding: 10px 8px;
+    box-shadow: 0 2px 20px var(--shadow);
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    padding: 10px 28px;
+  }
+
+  .meta-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .meta-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .meta-sep {
+    width: 1px;
+    background: var(--border);
+    align-self: stretch;
+    margin: 8px 0;
+  }
+
+  .btn-start {
+    background: var(--gold);
+    border: none;
+    color: #fff;
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 20px 52px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all .3s;
+    opacity: 0;
+    animation: fadeUp .8s ease forwards .9s;
+    box-shadow: 0 4px 24px rgba(184,146,42,0.35);
+  }
+
+  .btn-start:hover {
+    background: var(--gold2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(184,146,42,0.45);
+  }
+
+  /* ========== QUIZ ========== */
+  #quiz {
+    flex-direction: column;
+    align-items: center;
+    background: var(--bg);
+  }
+
+  /* Progress */
+  .progress-bar-wrap {
+    width: 100%;
+    height: 3px;
+    background: var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--gold2));
+    transition: width .5s ease;
+    border-radius: 0 2px 2px 0;
+  }
+
+  .progress-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 32px;
+    width: 100%;
+    max-width: 700px;
+    align-self: center;
+  }
+
+  .progress-step {
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  .progress-cat {
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: var(--gold);
+    font-weight: 500;
+  }
+
+  /* Question card */
+  .question-wrap {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 24px 48px;
+    width: 100%;
+  }
+
+  .question-card {
+    max-width: 640px;
+    width: 100%;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 40px 40px 32px;
+    box-shadow: 0 4px 32px var(--shadow);
+    animation: fadeUp .4s ease forwards;
+  }
+
+  .q-category {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+
+  .q-num {
+    display: inline-block;
+    width: 28px; height: 28px;
+    background: var(--gold-dim);
+    color: var(--gold);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 28px;
+    margin-bottom: 14px;
+    border: 1px solid rgba(184,146,42,0.25);
+  }
+
+  .q-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(20px, 3.5vw, 28px);
+    color: var(--cream);
+    line-height: 1.35;
+    margin-bottom: 32px;
+    font-weight: 600;
+  }
+
+  .q-text em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .option {
+    padding: 15px 20px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--cream2);
+    font-family: 'Jost', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    text-align: left;
+    cursor: pointer;
+    transition: all .22s;
+    position: relative;
+    overflow: hidden;
+    line-height: 1.5;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .option-dot {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    border: 1.5px solid var(--border2);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .22s;
+  }
+
+  .option-dot::after {
+    content: '';
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--gold);
+    opacity: 0;
+    transition: opacity .22s;
+  }
+
+  .option:hover {
+    background: var(--gold-dim);
+    border-color: var(--gold);
+    color: var(--cream);
+  }
+
+  .option:hover .option-dot {
+    border-color: var(--gold);
+  }
+
+  .option.selected {
+    background: var(--gold-dim);
+    border-color: var(--gold);
+    color: var(--cream);
+  }
+
+  .option.selected .option-dot {
+    border-color: var(--gold);
+    background: var(--gold-light);
+  }
+
+  .option.selected .option-dot::after {
+    opacity: 1;
+  }
+
+  /* Nav */
+  .quiz-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 32px;
+    width: 100%;
+    max-width: 700px;
+    align-self: center;
+    border-top: 1px solid var(--border);
+  }
+
+  .btn-prev {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all .25s;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-weight: 400;
+  }
+
+  .btn-prev:hover:not(:disabled) {
+    border-color: var(--cream2);
+    color: var(--cream);
+  }
+
+  .btn-prev:disabled {
+    opacity: .3;
+    cursor: not-allowed;
+  }
+
+  .btn-next {
+    background: var(--gold);
+    border: none;
+    color: #fff;
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 14px 36px;
+    cursor: pointer;
+    transition: all .25s;
+    border-radius: 6px;
+    box-shadow: 0 3px 16px rgba(184,146,42,0.3);
+  }
+
+  .btn-next:hover:not(:disabled) {
+    background: var(--gold2);
+    transform: translateY(-1px);
+    box-shadow: 0 5px 20px rgba(184,146,42,0.4);
+  }
+
+  .btn-next:disabled {
+    opacity: .35;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  /* ========== RESULT ========== */
+  #result {
+    align-items: center;
+    justify-content: flex-start;
+    background: var(--bg);
+  }
+
+  .result-header {
+    width: 100%;
+    padding: 64px 24px 52px;
+    background: linear-gradient(160deg, #FDFAF5 0%, #F3EADA 100%);
+    text-align: center;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .result-eyebrow {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
+
+  .result-type-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(30px, 5.5vw, 56px);
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+
+  .result-type-sub {
+    font-size: 15px;
+    color: var(--muted);
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.75;
+  }
+
+  /* Score ring */
+  .score-ring-wrap {
+    display: flex;
+    justify-content: center;
+    margin: 44px 0 0;
+  }
+
+  .score-ring {
+    width: 148px;
+    height: 148px;
+    position: relative;
+  }
+
+  .score-ring svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+  }
+
+  .score-ring-bg {
+    fill: none;
+    stroke: var(--border);
+    stroke-width: 7;
+  }
+
+  .score-ring-fill {
+    fill: none;
+    stroke: var(--gold);
+    stroke-width: 7;
+    stroke-linecap: round;
+    stroke-dasharray: 339;
+    stroke-dashoffset: 339;
+    transition: stroke-dashoffset 1.5s ease;
+  }
+
+  .score-ring-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .score-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1;
+  }
+
+  .score-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  /* Result body */
+  .result-body {
+    width: 100%;
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+  }
+
+  /* Category breakdown */
+  .breakdown-title {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
+
+  .breakdown-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+
+  .breakdown-item {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 24px;
+    border-left: 4px solid var(--gold);
+    box-shadow: 0 2px 12px var(--shadow);
+  }
+
+  .breakdown-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .breakdown-cat {
+    font-size: 13px;
+    color: var(--cream);
+    font-weight: 500;
+  }
+
+  .breakdown-score {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--gold);
+  }
+
+  .breakdown-bar {
+    height: 3px;
+    background: var(--border);
+    border-radius: 2px;
+    margin-bottom: 10px;
+  }
+
+  .breakdown-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 1s ease .3s;
+  }
+
+  .breakdown-insight {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* Key findings */
+  .findings {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 32px;
+    margin-bottom: 40px;
+  }
+
+  .findings-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 20px;
+  }
+
+  .finding-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .finding-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    font-size: 13px;
+    color: var(--cream2);
+    line-height: 1.65;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+
+  .finding-icon {
+    font-size: 16px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* CTA */
+  .cta-block {
+    background: linear-gradient(135deg, #F7F0DC 0%, #F0E5C4 100%);
+    border: 1px solid var(--border2);
+    border-radius: 16px;
+    padding: 44px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 32px var(--shadow);
+  }
+
+  .cta-block::before {
+    content: '✦';
+    position: absolute;
+    right: 20px; top: 20px;
+    font-size: 80px;
+    color: var(--gold);
+    opacity: .07;
+    pointer-events: none;
+  }
+
+  .cta-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
+    font-weight: 500;
+  }
+
+  .cta-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(22px, 4vw, 34px);
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 14px;
+    line-height: 1.2;
+  }
+
+  .cta-desc {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 28px;
+    line-height: 1.75;
+    max-width: 440px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cta-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 28px;
+    line-height: 1;
+  }
+
+  .cta-price span {
+    font-size: 22px;
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  .btn-cta {
+    background: var(--gold);
+    border: none;
+    color: #fff;
+    font-family: 'Jost', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 18px 48px;
+    cursor: pointer;
+    transition: all .3s;
+    border-radius: 6px;
+    display: block;
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto 12px;
+    box-shadow: 0 4px 20px rgba(184,146,42,0.4);
+  }
+
+  .btn-cta:hover {
+    background: var(--gold2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(184,146,42,0.5);
+  }
+
+  .btn-retry {
+    background: transparent;
+    border: 1px solid var(--border2);
+    color: var(--muted);
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all .25s;
+    padding: 10px 24px;
+    border-radius: 6px;
+    margin-top: 8px;
+  }
+
+  .btn-retry:hover {
+    border-color: var(--cream2);
+    color: var(--cream);
+  }
+
+  /* WATERMARK */
+  .watermark {
+    position: fixed;
+    top: 14px;
+    left: 18px;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    opacity: 0.38;
+    transition: opacity .25s;
+    pointer-events: auto;
+  }
+
+  .watermark:hover { opacity: 0.7; }
+
+  .watermark-icon {
+    width: 18px; height: 18px;
+    fill: var(--gold);
+  }
+
+  .watermark-text {
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    color: var(--gold);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 540px) {
+    .question-card { padding: 28px 20px 24px; }
+    .progress-info { padding: 16px 20px; }
+    .quiz-nav { padding: 16px 20px; }
+    .findings { padding: 24px 18px; }
+    .cta-block { padding: 32px 20px; }
+    .meta-item { padding: 10px 18px; }
+    .result-body { padding: 32px 16px 60px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- WATERMARK -->
+<a class="watermark" href="https://instagram.com/qazyna_darimbet" target="_blank">
+  <svg class="watermark-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+  </svg>
+  <span class="watermark-text">@qazyna_darimbet</span>
+</a>
+
+<!-- ===== INTRO ===== -->
+<div id="intro" class="screen active">
+  <div class="intro-inner">
+    <div class="intro-photo-wrap">
+      <img src="kazyna.JPG" alt="Қазына">
+    </div>
+    <p class="intro-eyebrow">Психологиялық диагностика · Тегін</p>
+    <h1 class="intro-title">Ақша және<br><em>сені таңдайды ма?</em></h1>
+    <p class="intro-desc">Бұл убежденлерің сенің табысыңды тежеп жатыр ма? 20 сұрақ арқылы білу — 4 минут.</p>
+    <div class="intro-meta">
+      <div class="meta-item">
+        <span class="meta-num">20</span>
+        <span class="meta-label">Сұрақ</span>
+      </div>
+      <div class="meta-sep"></div>
+      <div class="meta-item">
+        <span class="meta-num">4</span>
+        <span class="meta-label">Минут</span>
+      </div>
+      <div class="meta-sep"></div>
+      <div class="meta-item">
+        <span class="meta-num">5</span>
+        <span class="meta-label">Категория</span>
+      </div>
+    </div>
+    <button class="btn-start" onclick="startQuiz()">Тестті бастау →</button>
+  </div>
+</div>
+
+<!-- ===== QUIZ ===== -->
+<div id="quiz" class="screen">
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-fill" id="progressFill" style="width:0%"></div>
+  </div>
+  <div class="progress-info">
+    <span class="progress-step" id="progressStep">1 / 20</span>
+    <span class="progress-cat" id="progressCat"></span>
+  </div>
+  <div class="question-wrap">
+    <div class="question-card" id="questionCard">
+      <div class="q-category" id="qCategory"></div>
+      <div class="q-text" id="qText"></div>
+      <div class="options" id="optionsWrap"></div>
+    </div>
+  </div>
+  <div class="quiz-nav">
+    <button class="btn-prev" id="btnPrev" onclick="prevQ()">← Артқа</button>
+    <button class="btn-next" id="btnNext" onclick="nextQ()" disabled>Келесі →</button>
+  </div>
+</div>
+
+<!-- ===== RESULT ===== -->
+<div id="result" class="screen">
+  <div class="result-header">
+    <p class="result-eyebrow">Сіздің нәтижеңіз</p>
+    <h2 class="result-type-title" id="resultTitle"></h2>
+    <p class="result-type-sub" id="resultSub"></p>
+    <div class="score-ring-wrap">
+      <div class="score-ring">
+        <svg viewBox="0 0 120 120">
+          <circle class="score-ring-bg"   cx="60" cy="60" r="54"/>
+          <circle class="score-ring-fill" id="ringFill" cx="60" cy="60" r="54"/>
+        </svg>
+        <div class="score-ring-text">
+          <span class="score-num" id="scoreNum">0%</span>
+          <span class="score-label">Шектеу</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="result-body">
+    <p class="breakdown-title">Категория бойынша талдау</p>
+    <div class="breakdown-list" id="breakdownList"></div>
+
+    <div class="findings" id="findingsBlock">
+      <div class="findings-title">Негізгі тұжырымдар</div>
+      <div class="finding-list" id="findingList"></div>
+    </div>
+
+    <div class="cta-block">
+      <p class="cta-label">Келесі қадам</p>
+      <h3 class="cta-title">«Ақша және Сен» миникурсы</h3>
+      <p class="cta-desc" id="ctaDesc"></p>
+      <div class="cta-price">9 900 <span>₸</span></div>
+      <button class="btn-cta">Курсқа жазылу →</button>
+      <br>
+      <button class="btn-retry" onclick="retryQuiz()">Тестті қайтадан өту</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const QUESTIONS = [
+  // CAT 1: Байлықтылық
+  { cat: "Байлықтылық", icon: "💎",
+    q: "«Байлықта лайық адамдар бар, ал мен олардың арасында емеспін» деген ой санамда жүреді.",
+    opts: ["Келіспеймін", "Кейде ойлаймын", "Жиі ойлаймын", "Толық келісемін"],
+    scores: [0,1,2,3] },
+  { cat: "Байлықтылық", icon: "💎",
+    q: "Үлкен ақша тапқан кезде «мен мұны алуға лайықпын ба?» деген күмән туады.",
+    opts: ["Жоқ, мұндай сезім болмайды", "Сирек", "Жиі", "Иә, үнемі осылай"],
+    scores: [0,1,2,3] },
+  { cat: "Байлықтылық", icon: "💎",
+    q: "Басқалардың табысты нәтижесін естігенде бейсаналы түрде «олар мұны қалай тапты екен?» деп ойлаймын.",
+    opts: ["Жоқ, қуанып қабылдаймын", "Кейде", "Жиі", "Иә, бұл менің бірінші реакциям"],
+    scores: [0,1,2,3] },
+  { cat: "Байлықтылық", icon: "💎",
+    q: "Өзіме бірдеңе сатып алуда «мен мұны аруым ба?» деп ойланамын.",
+    opts: ["Жоқ, өзімді бағалаймын", "Кейде", "Жиі", "Иә, бұл менің үлгім"],
+    scores: [0,1,2,3] },
+
+  // CAT 2: Ақша = Жамандық моральы
+  { cat: "Ақша туралы моральы", icon: "⚖️",
+    q: "«Байлық – зұлымдықтың түбі» немесе «Байлылар – арамдар» деген ой санамда бар.",
+    opts: ["Келіспеймін жоқ", "Аздап бар", "Бар", "Берік сенемін"],
+    scores: [0,1,2,3] },
+  { cat: "Ақша туралы моральы", icon: "⚖️",
+    q: "Байлықты ашық-ашық көрсету үшін ұятты немесе мақтаншыл деп санаймын.",
+    opts: ["Жоқ", "Кейде", "Жиі", "Иә, берік сенемін"],
+    scores: [0,1,2,3] },
+  { cat: "Ақша туралы моральы", icon: "⚖️",
+    q: "«Жақсы адамдар ақшаны бірінші ойда қоймайды» деген сенімім бар.",
+    opts: ["Жоқ", "Аздап", "Бар", "Толық келісемін"],
+    scores: [0,1,2,3] },
+  { cat: "Ақша туралы моральы", icon: "⚖️",
+    q: "Рухани немесе адамгершілік тұрғысынан байлыққа ұмтылу «дұрыс емес» сияқты сезіледі.",
+    opts: ["Келіспеймін жоқ", "Кейде ойлаймын", "Жиі", "Иә, берік"],
+    scores: [0,1,2,3] },
+
+  // CAT 3: Жеткіліксіздік ойлауы
+  { cat: "Жеткіліксіздік ойлауы", icon: "🏺",
+    q: "«Ақша бүгін болады, бүгін болмайды – бұл өмірдің заңы» деп санаймын.",
+    opts: ["Жоқ, жұмысты мүмкін", "Кейде", "Жиі", "Иә, бұл шындық"],
+    scores: [0,1,2,3] },
+  { cat: "Жеткіліксіздік ойлауы", icon: "🏺",
+    q: "Ақша жақсы келіп жатқанда үнемде «ұзаққа созылмас» деген қорқыныш туады.",
+    opts: ["Жоқ", "Сирек", "Жиі", "Үнемі"],
+    scores: [0,1,2,3] },
+  { cat: "Жеткіліксіздік ойлауы", icon: "🏺",
+    q: "Бір тұрсын жасасам, табыс орнын толтырады деп сенбеймін.",
+    opts: ["Сенемін", "Кейде күмәнданамын", "Жиі күмәнданамын", "Сенбеймін"],
+    scores: [0,1,2,3] },
+  { cat: "Жеткіліксіздік ойлауы", icon: "🏺",
+    q: "«Ақша – шектеулі ресурс, бір адам алса, екіншісіне аз қалады» деп санаймын.",
+    opts: ["Жоқ, жеткіліксіздік емес", "Аздап", "Жиі", "Иә, бұл менің наным"],
+    scores: [0,1,2,3] },
+
+  // CAT 4: Еңбек туралы убеждение
+  { cat: "Еңбек туралы убеждение", icon: "⚡",
+    q: "«Ақша тек артық еңбекпен ғана табылады, оңай жолмен табылған ақша – нағыз емес» деп санаймын.",
+    opts: ["Жоқ", "Аздап", "Жиі", "Берік сенемін"],
+    scores: [0,1,2,3] },
+  { cat: "Еңбек туралы убеждение", icon: "⚡",
+    q: "Демалыс немесе рахатланған кезінде «ақша тауып жатуым керек еді» деген күнө сезімі болады.",
+    opts: ["Жоқ, демалысты бағалаймын", "Кейде", "Жиі", "Үнемі"],
+    scores: [0,1,2,3] },
+  { cat: "Еңбек туралы убеждение", icon: "⚡",
+    q: "Пассивтік табыс немесе инвестиция – «шынайы еңбек» деп санамаймын.",
+    opts: ["Санаймын", "Күмәнданамын", "Жиі санамаймын", "Санамаймын"],
+    scores: [0,1,2,3] },
+  { cat: "Еңбек туралы убеждение", icon: "⚡",
+    q: "Жұмыста аз ақша алсам да «тауып болмайды, жеткіліксіздік» деп тоқтайтын кезім болады.",
+    opts: ["Жоқ, өзгеге ұмтыламын", "Сирек", "Жиі", "Иә, бұл қалпым"],
+    scores: [0,1,2,3] },
+
+  // CAT 5: Отбасылық мұра
+  { cat: "Отбасылық мұра", icon: "🌱",
+    q: "Ата-анам ақша туралы «аз болсын, бірақ адал болсын» немесе «байлылар бізден емес» деген сияқты нәтте айтатын.",
+    opts: ["Жоқ, оң тапсырма алдым", "Аздап", "Жиі", "Иә, негізгі хабарлама осы болды"],
+    scores: [0,1,2,3] },
+  { cat: "Отбасылық мұра", icon: "🌱",
+    q: "Отбасымда ақша туралы ашық сөйлеспейтін, ол «жабық тақырып» болатын.",
+    opts: ["Жоқ, ашық сөйлесетін", "Аздап жабық", "Жиі жабық", "Бүлдем жабық тақырып"],
+    scores: [0,1,2,3] },
+  { cat: "Отбасылық мұра", icon: "🌱",
+    q: "Ата-анамның ақшамен қатынасы мен өз қатынасыма ұқсас деп санаймын.",
+    opts: ["Жоқ, мүлдем басқа", "Аздап ұқсас", "Ұқсас", "Дәл солай"],
+    scores: [0,1,2,3] },
+  { cat: "Отбасылық мұра", icon: "🌱",
+    q: "«Біздің отбасы байлыққа арналмаған» деген бейсаналы сенімім бар деп ойлаймын.",
+    opts: ["Жоқ", "Мүмкін", "Иә, бар сияқты", "Иә, берік"],
+    scores: [0,1,2,3] },
+];
+
+const CATEGORIES = {
+  "Байлықтылық":              { color:"#B8922A", max:12 },
+  "Ақша туралы моральы":      { color:"#C4503A", max:12 },
+  "Жеткіліксіздік ойлауы":   { color:"#C4823A", max:12 },
+  "Еңбек туралы убеждение":   { color:"#8A6E3A", max:12 },
+  "Отбасылық мұра":           { color:"#3D8A5C", max:12 }
+};
+
+let current = 0;
+let answers = new Array(20).fill(null);
+
+function startQuiz() {
+  show('quiz');
+  renderQ();
+}
+
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function renderQ() {
+  const q = QUESTIONS[current];
+  document.getElementById('progressFill').style.width = ((current / 20) * 100) + '%';
+  document.getElementById('progressStep').textContent = (current + 1) + ' / 20';
+  document.getElementById('progressCat').textContent = q.icon + ' ' + q.cat;
+  document.getElementById('qCategory').textContent = q.cat.toUpperCase();
+  document.getElementById('qText').innerHTML = q.q;
+
+  const wrap = document.getElementById('optionsWrap');
+  wrap.innerHTML = '';
+  q.opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option' + (answers[current] === i ? ' selected' : '');
+    btn.innerHTML = `<span class="option-dot"></span><span>${opt}</span>`;
+    btn.onclick = () => selectOpt(i);
+    wrap.appendChild(btn);
+  });
+
+  document.getElementById('btnPrev').disabled = current === 0;
+  document.getElementById('btnNext').textContent = current === 19 ? 'Нәтижені көру →' : 'Келесі →';
+  document.getElementById('btnNext').disabled = answers[current] === null;
+
+  const card = document.getElementById('questionCard');
+  card.style.animation = 'none';
+  card.offsetHeight;
+  card.style.animation = 'fadeUp .4s ease forwards';
+}
+
+function selectOpt(i) {
+  answers[current] = i;
+  document.querySelectorAll('.option').forEach((b, j) => {
+    b.classList.toggle('selected', j === i);
+  });
+  document.getElementById('btnNext').disabled = false;
+}
+
+function nextQ() {
+  if (current < 19) { current++; renderQ(); }
+  else showResult();
+}
+
+function prevQ() {
+  if (current > 0) { current--; renderQ(); }
+}
+
+function retryQuiz() {
+  current = 0;
+  answers = new Array(20).fill(null);
+  show('quiz');
+  renderQ();
+}
+
+function showResult() {
+  show('result');
+
+  let total = 0;
+  answers.forEach((a, i) => { if (a !== null) total += QUESTIONS[i].scores[a]; });
+  const maxTotal = 60;
+  const pct = Math.round((total / maxTotal) * 100);
+
+  // Animate ring
+  setTimeout(() => {
+    const circ = 339;
+    const offset = circ - (circ * (pct / 100));
+    document.getElementById('ringFill').style.strokeDashoffset = offset;
+    let n = 0;
+    const interval = setInterval(() => {
+      n = Math.min(n + 2, pct);
+      document.getElementById('scoreNum').textContent = n + '%';
+      if (n >= pct) clearInterval(interval);
+    }, 20);
+  }, 300);
+
+  // Type
+  let typeTitle, typeSub, ctaDesc;
+  if (pct <= 25) {
+    typeTitle = "Ақша мені үйлестірмінді";
+    typeSub = "Ақшаға деген убежденлерің негізінен оң. Сен молшылыққа ашықсың. Аздаған жасырын блоктар болуы мүмкін.";
+    ctaDesc = "Тіпті таз убеждение кезінде де шектейтін жұмыс жаңа деңгейге тартады. Ашық потенциалыңды максимумға жеткіз.";
+  } else if (pct <= 50) {
+    typeTitle = "Жасырын блоктар бар";
+    typeSub = "Сенде ақшамен аралас қатынас-қатынас бар. Кейбір убежденлерің алғысын жылжытуды бастайды.";
+    ctaDesc = "5 күндік жұмыс арқылы осы жасырын блоктарды тауып, нақты техникалармен жою мүмкін. Нәтиже сезіледі.";
+  } else if (pct <= 75) {
+    typeTitle = "Ақша секреттері күшті";
+    typeSub = "Бұл убежденлерің табысыңды айқындамай тежеп жатыр. Бұл санал тандасыңнан кіш жерде болуы мүмкін.";
+    ctaDesc = "Бұл жерде жылдам нәтиже күту дұрыс емес — бірақ 5 күндік жұмыс сенің ойлауыңды терең өзгерістірудің басы болады.";
+  } else {
+    typeTitle = "Ақша блоктары өте күшті";
+    typeSub = "Убежденлерің ерте балалыққа қалыпсаған және өмірдің басты салаларын терең шалайды. Бірақ бұл өзгеруге болатын нәтте.";
+    ctaDesc = "Сен дәл осы курсқа ең қажеттіліктің. Бұл жасырын жаралармен жұмыс — емделеді. Бірге жасайық.";
+  }
+
+  document.getElementById('resultTitle').textContent = typeTitle;
+  document.getElementById('resultSub').textContent = typeSub;
+  document.getElementById('ctaDesc').textContent = ctaDesc;
+
+  // Category breakdown
+  const catScores = {};
+  QUESTIONS.forEach((q, i) => {
+    if (!catScores[q.cat]) catScores[q.cat] = 0;
+    catScores[q.cat] += (answers[i] !== null ? q.scores[answers[i]] : 0);
+  });
+
+  const insights = {
+    "Байлықтылық": [
+      "Өзіңді лайық санайсың — бұл табысыңның негізі.",
+      "Бей жерде «мен лайық емеспін» ойы жүреді.",
+      "Байлықтылық сезімі — негізгі жұмыс жасалатын жер.",
+      "Өзіңді байлыққа лайық санамауы — ең жиі блок."
+    ],
+    "Ақша туралы моральы": [
+      "Ақшаға нейтрал, таза қарайсың.",
+      "Аздап мораль байланысты бар.",
+      "Ақша = жамандық деген сезім байқалады.",
+      "Ақшаны моральдың тұрғысынан тезірек санайсың — бұл блок."
+    ],
+    "Жеткіліксіздік ойлауы": [
+      "Болуты ойлауы бар.",
+      "Кейде жеткіліксіздік режімі басады.",
+      "Жеткіліксіздік ойлауы жиі болады.",
+      "Scarcity mindset — ақшаны тоқтататын негізгі блок."
+    ],
+    "Еңбек туралы убеждение": [
+      "Еңбек пен ақша туралы таз сенімің бар.",
+      "Аздап «артық еңбек қана» убежденлеуі бар.",
+      "«Оңай жолмен ақша болмайды» деген блок жиі.",
+      "Еңбекке деген убеждение табысыңды тежеп жатыр."
+    ],
+    "Отбасылық мұра": [
+      "Отбасылық мұра оң болған.",
+      "Аздап отбасылық сценарий бар.",
+      "Отбасылық ақша сценарийлері күшті.",
+      "Отбасы мұрасы — ең тереңдегі блок."
+    ]
+  };
+
+  const list = document.getElementById('breakdownList');
+  list.innerHTML = '';
+  Object.entries(catScores).forEach(([cat, score]) => {
+    const max = CATEGORIES[cat].max;
+    const color = CATEGORIES[cat].color;
+    const catPct = Math.round((score / max) * 100);
+    const insightIdx = score <= 3 ? 0 : score <= 6 ? 1 : score <= 9 ? 2 : 3;
+    const div = document.createElement('div');
+    div.className = 'breakdown-item';
+    div.style.borderLeftColor = color;
+    div.innerHTML = `
+      <div class="breakdown-top">
+        <span class="breakdown-cat">${cat}</span>
+        <span class="breakdown-score">${catPct}%</span>
+      </div>
+      <div class="breakdown-bar">
+        <div class="breakdown-bar-fill" style="width:0%;background:${color}" data-w="${catPct}"></div>
+      </div>
+      <div class="breakdown-insight">${insights[cat][insightIdx]}</div>
+    `;
+    list.appendChild(div);
+  });
+
+  setTimeout(() => {
+    document.querySelectorAll('.breakdown-bar-fill').forEach(el => {
+      el.style.width = el.dataset.w + '%';
+    });
+  }, 400);
+
+  // Findings
+  const fList = document.getElementById('findingList');
+  fList.innerHTML = '';
+  const findings = [];
+
+  if (catScores["Байлықтылық"] >= 6)
+    findings.push({ icon: "⚠️", text: "«Мен байлыққа лайық емеспін» деген бейсаналы убеждение — табысыңды тұрақты тоқтататын ең жиі блок." });
+  if (catScores["Ақша туралы моральы"] >= 6)
+    findings.push({ icon: "⚠️", text: "Ақшаны «жаман нәрсе» деп санаған, ми оны одан қашырады. Бұл — бейсаналы қорғаныс механизмі." });
+  if (catScores["Жеткіліксіздік ойлауы"] >= 6)
+    findings.push({ icon: "⚠️", text: "Жеткіліксіздік ойлауы ақшаны ұстай алмауға әкеледі — тіпті ол келген кезде." });
+  if (catScores["Еңбек туралы убеждение"] >= 6)
+    findings.push({ icon: "💡", text: "«Тынышсыз еңбексіз ақша болмайды» убежденлеуі пассивтік табыс пен масштабтауды қиындатады." });
+  if (catScores["Отбасылық мұра"] >= 6)
+    findings.push({ icon: "🌱", text: "Отбасылық ақша сценарийлері ең терең жерде жасайды — және ең күшті өзгеруге әкеледі." });
+
+  if (findings.length === 0)
+    findings.push({ icon: "✦", text: "Негізгі убежденлерің жақсы. Алғысыңды жылжытуды бастайтын аздаған блоктарға назар аудару керек." });
+
+  findings.forEach(f => {
+    const div = document.createElement('div');
+    div.className = 'finding-item';
+    div.innerHTML = `<span class="finding-icon">${f.icon}</span><span>${f.text}</span>`;
+    fList.appendChild(div);
+  });
+}
+</script>
+</body>
+</html>
